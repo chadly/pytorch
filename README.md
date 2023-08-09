@@ -4,12 +4,25 @@ Based off of the [official pytorch image](https://hub.docker.com/r/pytorch/pytor
 
 ## Usage
 
-Use with `docker compose`:
+Use as a base image in your `Dockerfile`:
+
+```
+FROM ghcr.io/chadly/pytorch:latest
+
+RUN git clone https://github.com/m-bain/whisperX.git /app
+
+WORKDIR /app
+RUN pip install -e .
+
+CMD whisperx --help
+```
+
+or directly with `docker compose`:
 
 ```
 services:
   cli:
-    image: whisperx:latest
+    image: ghcr.io/chadly/pytorch:latest
     container_name: myapp
     build:
       context: .
@@ -22,10 +35,4 @@ services:
             - driver: nvidia
               device_ids: ['0']
               capabilities: [gpu]
-```
-
-or with `docker run`:
-
-```
-docker run --gpus all -it --rm whisperx:latest
 ```
