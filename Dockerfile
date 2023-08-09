@@ -11,10 +11,3 @@ RUN apt-get update && apt-get install -y \
     ffmpeg libsm6 libxext6 cmake libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/* \
     && git lfs install
-
-RUN git clone https://github.com/m-bain/whisperX.git /app
-
-WORKDIR /app
-RUN pip install -e .
-
-CMD whisperx --help
